@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+
+            function goForTheGold() {
+                //Declared variables
+                var sAthleteName;
+                var iNumOfAthletes;
+                var iNumGoldMedals;
+                var iNumSilverMedals;
+                var iNumBronzeMedals;
+                var iMonetaryValue = 0;
+
+                //Array Variables
+                var arAthleteNames = [];
+                var arMonetaryValues = [];
+                var arMonetaryMessages = [];
+
+                //Variables for the for loops
+                var iCount;
+                var iCount2;
+
+                //Holding variables for the bubble sort
+                var sAthleteNameHolding;
+                var iMonetaryValuesHolding;
+                var sMonetaryMessageHolding;
+
+                //Output Variable
+                var sOutput = "";
+                
+                //Promput user for how many athlete's and then run a loop to fill athleteNames array
+                iNumOfAthletes = parseInt(prompt("How many athletes?"));
+
+                //Check to see if the number that the user entered is valid
+                if (iNumOfAthletes > 0) {
+
+                    for (iCount = 1; iCount <= iNumOfAthletes; iCount++) {
+                        //Prompt user for athlete name
+                        sAthleteName = prompt("Enter Athlete " + iCount + "'s name: ");
+
+                        //Store athlete name in array
+                        arAthleteNames.push(sAthleteName);
+
+                        //Prompt for number of gold, silver and bronze medals
+                        iNumGoldMedals = parseInt(prompt("Enter " + sAthleteName + "'s number of Gold Medals: "));
+                        iNumSilverMedals = parseInt(prompt("Enter " + sAthleteName + "'s number of Silver Medals: "));
+                        iNumBronzeMedals = parseInt(prompt("Enter " + sAthleteName + "'s number of Bronze Medals: "));
+
+                        //Calculate the monetary values of all the medals and put it into the monetary values array
+                        iMonetaryValue = (37500 * iNumGoldMedals) + (22500 * iNumSilverMedals) + (15000 * iNumBronzeMedals);
+                        arMonetaryValues.push(iMonetaryValue);
+
+                        //Determine what the monetary message is and put it into the Monetary Messages Array
+
+                        if (iMonetaryValue >= 500000) {
+                            arMonetaryMessages.push("Become a sports commnetator");
+                        }
+                        else if (iMonetaryValue >= 250000) {
+                            arMonetaryMessages.push("You are rich and famous");
+                        }
+                        else {
+                            arMonetaryMessages.push("Great job! Keep training!");
+                        }
+
+                    }
+
+                    //Use a bubble sort to arrange the athletes by Total Monetary value from highest to lowest
+                    for (iCount = 0; iCount < arMonetaryValues.length - 1; iCount++) {
+                        for (iCount2 = iCount + 1; iCount2 < arMonetaryValues.length; iCount2++) {
+                            if (arMonetaryValues[iCount] < arMonetaryValues[iCount2]) {
+                                //Hold the variables from the array
+                                sAthleteNameHolding = arAthleteNames[iCount];
+                                iMonetaryValuesHolding = arMonetaryValues[iCount];
+                                sMonetaryMessageHolding = arMonetaryMessages[iCount];
+
+                                //Put the values from the later array position into the former
+                                arAthleteNames[iCount] = arAthleteNames[iCount2];
+                                arMonetaryValues[iCount] = arMonetaryValues[iCount2];
+                                arMonetaryMessages[iCount] = arMonetaryMessages[iCount2];
+
+                                //Put the holding variables into the array at the later array position
+                                arAthleteNames[iCount2] = sAthleteNameHolding;
+                                arMonetaryValues[iCount2] = iMonetaryValuesHolding;
+                                arMonetaryMessages[iCount2] = sMonetaryMessageHolding;
+
+                            }
+                        }
+                    }
+
+                    //Use a for loop to load up all of the data into the output variable
+                    for (iCount = 0; iCount < arAthleteNames.length; iCount++) {
+                        sOutput = sOutput + arAthleteNames[iCount] + " $" + arMonetaryValues[iCount] + " " + arMonetaryMessages[iCount] + "<br>";
+                    }
+
+                    //Put the output into the html document
+                    document.getElementById("olympicOutput").innerHTML = sOutput;
+                }
+                else {
+                    //If the user did not enter a valid number, alert them and end the function
+                    alert("Please enter a valid number");
+                }
+
+            }
+           
+        </script>
+    </head>
+
+    <body>
+        <button type="button" onclick="goForTheGold()">Go</button>
+        <p id="olympicOutput"></p>
+    </body>
+</html>
+

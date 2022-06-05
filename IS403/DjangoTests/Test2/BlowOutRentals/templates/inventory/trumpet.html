@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %}{% block content %}
+<div>
+  <h1>Blowout Instrument Rentals</h1>
+  <div class="text-center">
+    <p>You have selected the</p>
+    <p class="text-danger text-uppercase">{{ instrument_name }}</p>
+    <img src={% static 'img/trumpet.jpg' %} alt="Trumpet" />
+    <p><strong>$ {{ price }} per month</strong></p>
+    <p></p>
+  </div>
+</div>
+{% endblock %}

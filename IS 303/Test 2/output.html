@@ -1,0 +1,41 @@
+<!--
+    Page 2 of the site where the data from local storage is outputted
+-->
+<!DOCTYPE html>
+<html>
+    <body onload="loadData()">
+        <p id="firstName"></p>
+        <p id="lastName"></p>
+        <p id="userPassword"></p>
+        <p id="dateOfBirth"></p>
+        <p id="overallGPA"></p>
+        <p id="userGender"></p>
+        <p id="favoriteColor"></p>
+        <p id="emailPreference"></p>
+
+        <script>
+            function loadData() {
+                //Set all of the p tags to the values in local stoage
+                document.getElementById("firstName").innerHTML = "First name = " + localStorage.getItem("userFirstName");
+                document.getElementById("lastName").innerHTML = "Last name = " + localStorage.getItem("userLastName");
+                document.getElementById("userPassword").innerHTML = "Password = " + localStorage.getItem("userPassword");
+                document.getElementById("dateOfBirth").innerHTML = "Date of birth = " + localStorage.getItem("dateOfBirth");
+                document.getElementById("overallGPA").innerHTML = "Overall GPA = " + localStorage.getItem("overallGPA");
+                document.getElementById("userGender").innerHTML = "Gender = " + localStorage.getItem("userGender");
+                document.getElementById("favoriteColor").innerHTML = "Favorite color = " + localStorage.getItem("favoriteColor");
+                document.getElementById("emailPreference").innerHTML = "User would like to receive emails = " + localStorage.getItem("emailPreference");
+
+                //Remove all items in local storage
+                localStorage.removeItem("userFirstName");
+                localStorage.removeItem("userLastName");
+                localStorage.removeItem("userPassword");
+                localStorage.removeItem("dateOfBirth");
+                localStorage.removeItem("overallGPA");
+                localStorage.removeItem("userGender");
+                localStorage.removeItem("favoriteColor");
+                localStorage.removeItem("emailPreference");
+            }
+        </script>
+        
+    </body>
+</html>

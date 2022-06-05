@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "J+qSppwQEJJ9KSaQYzGFxUNTLOGMD2xAWFMgnxv5R6iT1KcFyx2Ol+B/SysU1SbZwOUrPEig6I15flsdUIKKnw==",
+  "success": true,
+  "projectFilePath": "/Users/noahjohnson/Dev/IS414/WebSec/c/SQLInjection/SQLInjection.csproj",
+  "expectedPackageFiles": [
+    "/Users/noahjohnson/.nuget/packages/stub.system.data.sqlite.core.netstandard/1.0.113.2/stub.system.data.sqlite.core.netstandard.1.0.113.2.nupkg.sha512",
+    "/Users/noahjohnson/.nuget/packages/system.data.sqlite.core/1.0.113.7/system.data.sqlite.core.1.0.113.7.nupkg.sha512"
+  ],
+  "logs": []
+}

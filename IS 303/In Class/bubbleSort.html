@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+   <html>
+       <head>
+       </head>
+
+       <body>
+           <script>
+               var asTeamNames = ["Nuggets", "Thunder", "Blazers", "Jazz", "Timberwolves" ];
+               var aiTeamWins = [37, 34, 32, 30, 25];
+               var sHoldTeam;
+               var iHoldWins;
+               var iLength = asTeamNames.length;
+               var iCount1;
+               var iCount2;
+
+                //Loop to go  through each array value
+               for (iCount1 = 0; iCount1 < iLength - 1; iCount1++)
+               {
+                   //Loop to compare frist variable to the other variables
+                   for (iCount2 = iCount1 + 1; iCount2 < iLength; iCount2++)
+                   {
+                   //flip the sign if you want descending
+                       if (aiTeamWins[iCount1] > aiTeamWins[iCount2])
+                       {
+                           //Put array value into a holding variable
+                           iHoldWins = aiTeamWins[iCount2];
+                           sHoldTeam = asTeamNames[iCount2];
+
+                            //Puts the second value into the first location
+                           aiTeamWins[iCount2] = aiTeamWins[iCount1];
+                           asTeamNames[iCount2] = asTeamNames[iCount1];
+
+                            //Replaces the data with the data that was in the held variable
+                           aiTeamWins[iCount1] = iHoldWins;
+                           asTeamNames[iCount1] = sHoldTeam;
+                       }
+                   }
+               }
+
+               alert(asTeamNames.join("\n"));
+
+               alert(aiTeamWins.join("\n"));
+
+           </script>
+
+       </body>
+
+   </html>

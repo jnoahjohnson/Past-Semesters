@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <script>
+
+            function classRetake(classGPA) {
+				if (classGPA === 3.4) {
+					return 3;
+				}
+				else if (classGPA === 2.4) {
+					return 2;
+				}
+				else if (classGPA === 1.4) {
+					return 1;
+				}
+				else if (classGPA === .7) {
+					return 0;
+				}
+				else {
+					return classGPA - .3;
+				}
+			}
+
+            function chooseIt() {
+                var test = 3;
+
+                var hello = classRetake(test);
+
+                console.log(hello);
+
+            }
+        </script>
+
+        <h1>Who is the worst actor?</h1>
+        <button onclick="chooseIt('Hayden')">Hayden Christensen</button>
+        <button onclick="chooseIt('Nic')">Nick Cage</button> <br>
+
+        <img id="myImage" src="">
+        <p id="actorName"></p>
+       
+    </body>
+</html>

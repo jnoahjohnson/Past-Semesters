@@ -1,0 +1,10 @@
+
+            var age = parseInt(prompt("What is your age?"));
+            var retirementAge = 75-age;
+
+            if (retirementAge < 0) {
+                alert("you can retire in " + (75-age) + " years");
+            }
+            else {
+                alert("You should be retired");
+            }

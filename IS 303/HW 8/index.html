@@ -1,0 +1,361 @@
+<!--Stephen Hales, Hoon Lee, Teresa Huff, Devan Alder, Noah Johnson-->
+<!--
+   Description
+   A program that takes a list of teams and turns each one of them into an Team object.
+   The program then simulates a season ob basketball where each team will play against eachother two times.
+   The wins and losses will be calculated and at the end of the season all of the teams will be sorted and outputted
+   based on the results of the games.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Bootstrap CDN-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <style>
+    
+        body {
+            text-align: center;
+        }
+
+        li {
+            list-style-type: none;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        ul {
+            padding-left: 0;
+        }
+
+        .mainHeader {
+            color: white;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .headBlock {
+            background-color: #008BCA;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 20px;
+        }
+
+        .button5 {
+            display:inline-block;
+            padding:0.46em 1.6em;
+            border:0.1em solid #FFFFFF;
+            margin:0 0.2em 0.2em 0;
+            border-radius:0.12em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            font-weight:300;
+            color:#FFFFFF;
+            text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+            background-color:#FFFFFF;
+            text-align:center;
+            transition: all 0.15s;
+        }
+
+        .button5:hover {
+            text-shadow: 0 0 2em rgba(255,255,255,1);
+            color:#000000;
+            border-color:#000000;
+        }
+        @media all and (max-width:30em){
+            .button5{
+                display:block;
+                margin:0.4em auto;
+            }
+        }
+
+        #seasonHeader {
+            margin-bottom: 30px;
+        }
+        
+        .outputText {
+            font-size: 18px;
+        }
+
+        .leaderboard {
+            border-style: solid;
+            border-color: #008BCA;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+    </style>
+<body>
+    <div class="headBlock">
+        <h1 class="mainHeader">Teams in the WCC</h1>
+    </div>
+   <ul id="teamList">
+       <li>BYU</li>
+       <li>Gonzaga</li>
+       <li>Loyola</li>
+       <li>Pacific</li>
+       <li>Pepperdine</li>
+       <li>Portland</li>
+       <li>Saint Marys</li>
+       <li>San Diego</li>
+       <li>San Francisco</li>
+       <li>Santa Clara</li>
+   </ul>
+   <br><br>
+   <input type="button" value="Play Game" onclick="playGame()" class="button5" style="background-color:#008BCA;">
+    <br><br>
+   <h2 id="seasonHeader" style="display: none;">Season Results</h2>
+   <div class="leaderboard" id="mainLeaderboard" style="display: none;">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Team Name</h3>
+                <p id="nameOutput" class="outputText"></p>
+            </div>
+            <div class="col-md-2">
+                <h3>Wins</h3>
+                <p id="winsOutput" class="outputText"></p>
+            </div>
+            <div class="col-md-2">
+                <h3>Losses</h3>
+                <p id="lossesOutput" class="outputText"></p>
+            </div>
+        </div>
+    </div>
+   <p id="output"></p>
+   <script>
+       //Create a team class
+       class Team  {
+           teamName;
+           wins;
+           losses;
+           winLossPct;
+           games;
+           //Default Constructor; How many parameters do we need to set?
+           constructor(teamName) {
+               this.teamName = teamName;
+               this.wins = 0;
+               this.losses = 0;
+               this.winLossPct = 0.0;
+               this.games = [];
+           }
+           //Methods of the class
+           getTeam() {
+               return this.teamName;
+           }
+           setTeam(teamName) {
+               this.teamName = teamName;
+           }
+           addWin() {
+            this.wins = this.wins + 1;
+           }
+           addLoss() {
+            this.losses = this.losses + 1;
+           }
+           getWins() {
+               return this.wins;
+           }
+           getLosses() {
+               return this.losses;
+           }
+           calcWinLossPct() {
+            this.winLossPct = this.wins/(this.wins + this.losses);   
+           }
+           setWinsLosses(numWins, numLosses) {
+            this.wins = numWins;
+            this.losses = numLosses;
+            this.winLossPct = this.calcWinLossPct(numWins, numLosses);
+           }
+       }
+       //Create a basketball team class that inherits from Team
+       class BasketballTeam extends Team{
+
+           //Create a new constructor for this!
+            totalPointsFor = 0;
+            totalPointsAgainst = 0;
+            
+            addPointsFor(points)
+            {
+              this.totalPointsFor = this.totalPointsFor + points;
+            }
+            addPointsAgainst(points)
+            {
+                this.totalPointsAgainst = this.totalPointsAgainst + points;
+            }
+            getAllPoints()
+            {
+                return ("Points for " + totalPointsFor + " and Points Against " + totalPointsAgainst);
+            }
+       }
+       //Create a Games class
+       class Game {
+            myScore;
+            theirScore;
+            winOrLoss;
+            constructor(myScore, theirScore, winOrLoss) {
+                this.myScore = myScore;
+                this.theirScore = theirScore;
+                this.winOrLoss = winOrLoss;
+            }
+       }
+       //Function that runs when user clicks the button
+       function playGame() {
+           var homeScore;
+           var awayScore;
+           var iCount;
+           var iCount2;
+           var newTeam;
+           var teamObjects = [];
+           var newGame;
+           var teamObjectHold;
+
+           var nameOutput = "";
+           var winsOutput= "";
+           var lossesOutput = "";
+
+           //Team Variables
+           var firstTeam;
+           var secondTeam;
+           var firstTeamScore;
+           var secondTeamScore;
+           
+           //Create an array of the teams in the html form
+           var listOfTeams = document.getElementById("teamList").getElementsByTagName("li");
+
+           //Create an array of Team objects from the array above
+            for (iCount = 0; iCount < listOfTeams.length; iCount++) {
+                //Instatiate a new Team object, using the names from the array of teams from the html form
+                newTeam = new BasketballTeam(listOfTeams[iCount].innerHTML);
+                teamObjects.push(newTeam);
+            }
+
+           //Simulate the games against each other and update the attributes of the objects
+           for (iCount = 0; iCount < listOfTeams.length - 1; iCount++) {
+
+               firstTeam = teamObjects[iCount];
+
+               for(iCount2 = iCount + 1; iCount2 < listOfTeams.length; iCount2++) {
+
+                    secondTeam = teamObjects[iCount2];
+
+                    //Play the first game where the first team is home
+                    firstTeamScore = Math.floor(Math.random()*101) + 5;
+                    secondTeamScore = Math.floor(Math.random()*101);
+
+                    //Check to see if there is a tie
+                    while(firstTeam === secondTeamScore) {
+                        firstTeamScore = firstTeamScore + Math.floor(Math.random()*16);
+                        secondTeamScore = secondTeamScore + Math.floor(Math.random()*16);
+                    }
+
+                    //First team wins
+                    if(firstTeamScore > secondTeamScore) {
+                        //Add a game object to both teams
+                        firstTeam.games.push(new Game(firstTeamScore, secondTeamScore, "Win"));
+                        secondTeam.games.push(new Game(secondTeamScore, firstTeamScore, "Loss"));
+
+                        //Add a win to the winner and a loss to the loser
+                        firstTeam.addWin();
+                        secondTeam.addLoss();
+                    }
+                    //Second team wins
+                    else {
+                        //Add a game object to both teams
+                        firstTeam.games.push(new Game(firstTeamScore, secondTeamScore, "Loss"));
+                        secondTeam.games.push(new Game(secondTeamScore, firstTeamScore, "Win"));
+
+                        //Add a win to the winner and a loss to the loser
+                        firstTeam.addLoss();
+                        secondTeam.addWin();
+                    }
+
+                    //Add total points to each team
+                    firstTeam.addPointsFor(firstTeamScore);
+                    firstTeam.addPointsAgainst(secondTeamScore);
+
+                    secondTeam.addPointsFor(secondTeamScore);
+                    secondTeam.addPointsAgainst(firstTeamScore);
+
+                    //Calculate the win loss percentage for each team
+                    firstTeam.calcWinLossPct();
+                    secondTeam.calcWinLossPct();
+
+
+                    //Play the second game where the frist team is the away team
+                    firstTeamScore = Math.floor(Math.random()*101);
+                    secondTeamScore = Math.floor(Math.random()*101) + 5;
+
+                    //Check to see if there is a tie
+                    while(firstTeam === secondTeamScore) {
+                        firstTeamScore = firstTeamScore + Math.floor(Math.random()*16);
+                        secondTeamScore = secondTeamScore + Math.floor(Math.random()*16);
+                    }
+
+                    //First team wins
+                    if(firstTeamScore > secondTeamScore) {
+                        //Add a game object to both teams
+                        firstTeam.games.push(new Game(firstTeamScore, secondTeamScore, "Win"));
+                        secondTeam.games.push(new Game(secondTeamScore, firstTeamScore, "Loss"));
+
+                        //Add a win to the winner and a loss to the loser
+                        firstTeam.addWin();
+                        secondTeam.addLoss();
+                    }
+                    //Second team wins
+                    else {
+                        //Add a game object to both teams
+                        firstTeam.games.push(new Game(firstTeamScore, secondTeamScore, "Loss"));
+                        secondTeam.games.push(new Game(secondTeamScore, firstTeamScore, "Win"));
+
+                        //Add a win to the winner and a loss to the loser
+                        firstTeam.addLoss();
+                        secondTeam.addWin();
+                    }
+
+                    //Add total points to each team
+                    firstTeam.addPointsFor(firstTeamScore);
+                    firstTeam.addPointsAgainst(secondTeamScore);
+
+                    secondTeam.addPointsFor(secondTeamScore);
+                    secondTeam.addPointsAgainst(firstTeamScore);
+
+                    //Calculate the win loss percentage for each team
+                    firstTeam.calcWinLossPct();
+                    secondTeam.calcWinLossPct();
+
+               }
+           }
+
+            //Sort the teams by number of wins using a bubble sort
+            for(iCount = 0; iCount < teamObjects.length; iCount++) {
+                for(iCount2 = iCount + 1; iCount2 < teamObjects.length; iCount2++) {
+                    if (teamObjects[iCount].getWins() < teamObjects[iCount2].getWins()) {
+                    //Put array value into a holding variable
+                    teamObjectHold = teamObjects[iCount2];
+                    //Puts the second value into the first location
+                    teamObjects[iCount2] = teamObjects[iCount];
+                    //Replaces the data with the data that was in the held variable
+                    teamObjects[iCount] = teamObjectHold;
+                    }
+                }
+            }
+
+            //Create output text
+            for(iCount = 0; iCount < teamObjects.length; iCount++) {
+                nameOutput = nameOutput + teamObjects[iCount].getTeam() + "<br>";
+                winsOutput = winsOutput + teamObjects[iCount].getWins() + "<br>";
+                lossesOutput = lossesOutput + teamObjects[iCount].getLosses() + "<br>";
+            }
+            
+            //Set the document p tag to a list of the teams
+            document.getElementById("nameOutput").innerHTML = nameOutput;
+            document.getElementById("winsOutput").innerHTML = winsOutput;
+            document.getElementById("lossesOutput").innerHTML = lossesOutput;
+
+            //Unhide the results on the page
+            document.getElementById("seasonHeader").style.display = "block";
+            document.getElementById("mainLeaderboard").style.display = "block";
+       }
+   </script>
+</body>
+</html>

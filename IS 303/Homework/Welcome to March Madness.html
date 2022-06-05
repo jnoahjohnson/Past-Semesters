@@ -1,0 +1,129 @@
+<!--Noah Johnson-->
+
+<!-- Description of the program
+
+    Retrieve the contents of the games text box and convert it to an integer since the data is a string. 
+    Also retrieve the contents of the teamName text box. 
+
+    Use the number of games from the text box and use a loop to play the number of games. Your team that was entered 
+    in the text box will begin at home. Then, your team will switch between being at home and visiting with each iteration of the loop. 
+    For example, Game1: home, Game2: visiting, Game3: home, etc.
+
+    Generate random numbers for each of the teams from 0 to 100. However, whomever is the home team will get a 5 point bonus 
+    on their score within the loop.  If there is a tie, you will play an overtime that generates a new random number score up to 15 points. 
+    This score will be added to the previous score. Do NOT add the extra bonus of 5 points for home teams during the overtime portion. 
+    If there is another tie, do another overtime period generating 2 new random numbers and adding it to the total score. 
+    Keep doing this until there is no tie. When the game is over you will store the team name and scores for each team and if there was an overtime period. 
+    You will show your team name, team score, your opponent’s score, the number of overtime period(s) – don’t display if there wasn’t one, and whether your 
+    team won or lost. 
+    
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function playGame()
+            {
+                //Declaration of variables
+                var numGames = parseInt(document.getElementById("games").value);
+                var myTeam = document.getElementById("teamName").value;
+                var output = "";
+
+                var iCount;
+                var isHome = true;
+                var myTeamScore;
+                var opponentTeamScore;
+                var numOvertimes = 0;
+                var numWins = 0;
+                var numLosses = 0;
+                var winPercentage;
+
+                //For loop that will run for as many games as the user inputed
+                for (iCount = 0; iCount < numGames; iCount++) {
+                    //Checks to see game is odd or even, switching the user team to be home or away
+                    if (iCount % 2 === 0) {
+                        isHome = true;
+                    }
+
+                    //Generates a random number for user team and opponent team
+                    myTeamScore = Math.floor(Math.random() * 101);
+                    opponentTeamScore = Math.floor(Math.random() * 101);
+
+                    //Gives 5 extra pointst to the home team
+                    if (isHome) {
+                        myTeamScore = myTeamScore + 5;
+                    }
+                    else {
+                        opponentTeamScore = opponentTeamScore + 5;
+                    }
+
+                    //In the case of a tie, executes this if statement
+                    if (myTeamScore === opponentTeamScore) {
+
+                        numOvertimes = 0;
+
+                        //Run this loop as long as there is a tie, adding to the number of overtimes each time
+                        do {
+                            numOvertimes++;
+
+                            myTeamScore = myTeamScore + Math.floor(Math.random() * 16);
+                            opponentTeamScore = opponentTeamScore + Math.floor(Math.random() * 16);
+
+                        } while (myTeamScore === opponentTeamScore);
+
+                    }
+
+                    //When the user team has a higher score than the opponent team
+                    if (myTeamScore > opponentTeamScore) {
+
+                        //Adds the result and if there was an overtime to the output
+                        if (numOvertimes > 0) {
+                            output = output + myTeam + ": " + myTeamScore + " - " + opponentTeamScore + " with " + numOvertimes + " OT and Wins" + "<br>";
+                        }
+                        else {
+                            output = output + myTeam + ": " + myTeamScore + " - " + opponentTeamScore + " and Wins" + "<br>";
+                        }
+                        
+                        numWins++;
+                    }
+                    //When the opponent team score is higher than the user team
+                    else if(myTeamScore < opponentTeamScore) {
+
+                        //Adds the result and if there was an overtime to the output
+                        if (numOvertimes > 0) {
+                            output = output + myTeam + ": " + myTeamScore + " - " + opponentTeamScore + " with " + numOvertimes + " OT and Loses" + "<br>";
+                        }
+                        else {
+                            output = output + myTeam + ": " + myTeamScore + " - " + opponentTeamScore + " and Loses" + "<br>";
+                        }
+
+                        numLosses++;
+                    }
+
+                }
+
+                //Calculate the win percentage of the season
+                winPercentage = Number((numWins / numGames) * 100).toFixed(1);
+
+                //Output the team's record and win percentage
+                output = output +  "<br>" + myTeam + " record is " + numWins + "-" + numLosses + " with a winning pct of " + winPercentage + "%";
+
+                //Assign the contents of the variable output to the html tag outputGames
+                document.getElementById("outputGames").innerHTML = output;
+
+            }
+        </script>
+
+        <title>
+            Welcome to March Madness
+        </title>
+    </head>
+    <body>
+        Enter your team name: <input type="text" name="teamName" id="teamName"><br><br>
+        Number of games: <input type="text" name="games" id="games"><br><br>
+        <button type="button" onclick="playGame()">Start Season</button><br>
+        <p id="outputGames"></p>
+    
+</body></html>
+

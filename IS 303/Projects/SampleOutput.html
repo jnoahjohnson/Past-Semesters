@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body onload="loadData()">
+    <p id="output"></p> 
+    <script>
+        function loadData()
+        {
+            var sOutput = "";
+
+            sOutput = localStorage.getItem("newFirstName") + " " 
+                    + localStorage.getItem("newLastName");
+
+            document.getElementById("output").innerHTML = sOutput;
+            document.getElementById("output").style.color = localStorage.getItem("newFavColor");
+
+            //uncomment and refresh after displayed
+            //localStorage.removeItem("newFirstName");
+            //localStorage.removeItem("newLastName");
+        }
+    </script>
+</body>
+</html>

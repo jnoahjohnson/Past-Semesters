@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script>
+            var numNumbers;
+            var iCount;
+            var numberSum = 0;
+            var userNumber;
+
+            numNumbers = parseInt(prompt("How many numbers?", 0));
+
+            for(iCount = 0; iCount < numNumbers; iCount++) 
+            {
+                userNumber = parseInt(prompt("What is your number?", 0));
+                console.log(userNumber);
+                numberSum = numberSum + userNumber;
+            }
+
+            console.log(numberSum);
+
+            var averageNumber = 0;
+
+            averageNumber = numberSum / numNumbers;
+
+            console.log(averageNumber);
+
+        </script>
+
+    </head>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,313 @@
+<!-- 
+  
+Description: Main WordGuess HTML Page. This contains the layout and styling for the game.
+There are many inputs where users can guess the song title in the fewest guesses possible.
+I also included some fun animations to try out doing animations in pure CSS and JavaScript.
+
+Enjoy!
+
+
+Author: Noah Johnson 
+
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Word Guess!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Animations */
+      @keyframes move {
+        from {
+          background-position-y: 700px;
+        }
+
+        to {
+          background-position-y: bottom;
+        }
+      }
+
+      @keyframes appear {
+        from {
+          opacity: 0%;
+        }
+
+        to {
+          opacity: 100%;
+        }
+      }
+
+      @keyframes flyThrough {
+        from {
+          background-size: 100%;
+        }
+
+        to {
+          background-size: 250%;
+        }
+      }
+
+      @keyframes grow {
+        from {
+          transform: scale(0.75);
+        }
+
+        to {
+          transform: scale(1);
+        }
+      }
+
+      /* Styles */
+
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Roboto, sans-serif;
+
+        background-color: #ff7700;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc0000' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23aa0000' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23d6002b' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23b10022' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23d9004b' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23b2003d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23d3006c' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ac0057' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23c4008c' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%239e0071' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23aa00aa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23880088' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+        background-attachment: fixed;
+        background-size: 100%;
+        background-position-y: bottom;
+        background-position-x: center;
+        background-repeat: no-repeat;
+
+        animation-name: move;
+        animation-duration: 2.5s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-out;
+      }
+
+      #startDiv {
+        margin: 0 auto;
+        text-align: center;
+
+        animation-name: appear;
+        animation-duration: 2s;
+      }
+
+      #gameTitle {
+        font-size: 4.5em;
+        transform: rotate(-0.01turn);
+        color: white;
+        margin-top: -50px;
+      }
+
+      input[type="button"] {
+        color: #9e0071;
+        border: solid #9e0071 1px;
+        background: white;
+        padding: 8px 20px;
+        font-family: Roboto, sans-serif;
+        font-weight: 700;
+        font-size: 1em;
+        border-radius: 5px;
+        transition: all;
+        transition-duration: 500ms;
+      }
+
+      input[type="button"]:hover {
+        color: white;
+
+        background: #9e0071;
+      }
+
+      input[type="button"].large {
+        font-size: 1.75em;
+      }
+
+      #gameDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 3px;
+        width: 80%;
+        max-width: 960px;
+        padding: 50px 20px;
+        opacity: 0%;
+        animation: appear forwards;
+        animation-delay: 1s;
+        animation-duration: 500ms;
+      }
+
+      #gameDiv.hidden {
+        display: none;
+        animation: appear forwards;
+        animation-duration: 500ms;
+        animation-direction: reverse;
+      }
+
+      #displayTitleName {
+        font-size: 2.5em;
+      }
+
+      #titleNote {
+        font-weight: 100;
+        font-style: italic;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 0 10px 0px;
+        text-align: center;
+        background-color: #9e0071;
+        color: white;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        background: purple;
+        transition: all 750ms;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      legend {
+        background-color: purple;
+        padding: 5px 10px;
+        color: white;
+        text-overflow: clip;
+      }
+
+      fieldset {
+        width: 500px;
+        display: inline-block;
+      }
+
+      fieldset > p {
+        width: 350px;
+      }
+
+      #congratsHeader {
+        animation: grow 2s 1;
+        margin-bottom: 40px;
+      }
+
+      #playAgainDiv {
+        background: white;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        animation-name: appear;
+        animation-duration: 300ms;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 999;
+      }
+
+      #playAgainDiv.hidden {
+        display: none;
+      }
+
+      .flyThrough {
+        animation: flyThrough 4s;
+        background-size: 250%;
+      }
+
+      /* Responsive */
+
+      @media (max-width: 930px) {
+        #gameDiv {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="startDiv">
+      <h1 id="gameTitle">Word Guess!</h1>
+      <input type="button" value="Play Game" id="btnPlayGame" class="large" />
+      <br /><br />
+      <input type="button" id="btnShowGames" value="Show Games" />
+      <br /><br />
+      <input type="button" id="btnResetForm" value="Reset Games" />
+      <br /><br />
+    </div>
+
+    <div id="playAgainDiv" class="hidden">
+      <h1 id="congratsHeader">You Won!</h1>
+      <input
+        type="button"
+        id="btnPlayAgainSame"
+        value="Play Again with SAME user?"
+      />
+      <br />
+      <input
+        type="button"
+        id="btnPlayAgainDiff"
+        value="Play Again with DIFFERENT user?"
+      />
+      <br /><br />
+      <input type="button" value="Show Games" onclick="showGames()" />
+      <br /><br />
+    </div>
+
+    <div id="gameDiv" class="hidden">
+      <div class="leftColumn">
+        <p id="displayTitleName" hidden></p>
+        <p id="titleNote" hidden>
+          NOTE: Spaces have been removed from the song title
+        </p>
+        <br /><br />
+        <fieldset id="fsAvailable" hidden style="width: 0px">
+          <legend>
+            <strong><em>Available Characters</em></strong>
+          </legend>
+          <p id="availableChars"></p>
+        </fieldset>
+        <br /><br />
+        <fieldset id="fsUsed" hidden style="width: 0px">
+          <legend>
+            <strong><em>Used Characters</em></strong>
+          </legend>
+          <p id="usedChars"></p>
+        </fieldset>
+        <br /><br />
+      </div>
+      <div class="rightColumn">
+        <fieldset id="fsPlay" hidden style="width: 0px">
+          <label for="input">Enter Character:</label>
+          <input type="text" id="inputLetter" />
+          <br /><br />
+          <input type="button" id="btnGuess" value="Submit Character" />
+          <br /><br />
+          <p><strong>OR</strong></p>
+          <br /><br />
+          <label for="finalGuess">Enter Your Final Guess:</label>
+          <input type="text" id="finalGuess" />
+          <em
+            >NOTE:But if you guess wrong, 26 will be added to your guess
+            count</em
+          >
+          <br /><br />
+          <input type="button" id="btnFinalGuess" value="Final Guess" />
+          <br /><br />
+        </fieldset>
+        <br /><br />
+      </div>
+    </div>
+
+    <!-- Inport the main JavaScript -->
+
+    <script src="main.js"></script>
+  </body>
+</html>

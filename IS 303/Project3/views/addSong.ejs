@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add New Song</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .mainDiv {
+                width: 75%;
+                display: inline-block;
+                text-align: center;
+                margin-top: 40px;
+            }
+
+            body {
+                text-align: center;
+            }
+        
+        </style>
+    </head>
+    <body>
+        
+        <div class="mainDiv">
+        <form action="/addSong" method="POST">
+            <label for="songName">Song Name: </label><input type="text" name="songName"><br>
+            <label for="artistID">Artist Name: </label><input type="text" name="artistID"><br>
+            <label for="yearReleased">Year Released: </label><input type="text" name="yearReleased"><br>
+            <input type="submit" class="button" value="Add New Song">
+        </form>
+
+        <br>
+
+        <form action="/" method="GET">
+            <input type="submit" class="button" value="Go Back Home">
+        </form>
+        </div>
+
+        
+    </body>
+</html>

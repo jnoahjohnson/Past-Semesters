@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IS GPA Calculator</title>
+		<script>
+			
+			function round(value, decimals) {
+			   return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+			}
+			
+			function retake(classGPA) {
+				if (classGPA == 3.4) {
+					return 3;
+				}
+				else if (classGPA == 2.4) {
+					return 2;
+				}
+				else if (classGPA == 1.4) {
+					return 1;
+				}
+				else if (classGPA == .7) {
+					return 0;
+				}
+				else {
+					return classGPA - .3;
+				}
+			}
+
+
+			function calcGPA() {
+				var is201GPA = parseFloat(document.getElementById("is201-gpa").value);
+				var is301GPA = parseFloat(document.getElementById("is301-gpa").value);
+				var acc200GPA = parseFloat(document.getElementById("acc200-gpa").value);
+				var fin201GPA = parseFloat(document.getElementById("fin201-gpa").value);
+				var mktg201GPA = parseFloat(document.getElementById("mktg201-gpa").value);
+				var byuGPA = parseFloat(document.getElementById("byu-gpa").value);
+				var byuLast30GPA = parseFloat(document.getElementById("byu-30-gpa").value);
+				
+				var iCount;
+				
+				var studentFormGPA = document.getElementsByTagName("select");
+				var classRetake = document.getElementsByTagName("input");
+				
+				var studentGPA = [];
+				
+				var outputTextBox = document.getElementById("gpa-display");
+				
+				var totalGPA = 0;
+				
+				var inputValid = true;
+				
+				for(iCount = 0; iCount < studentFormGPA.length; iCount++) {
+					var gpaNumber = parseFloat(studentFormGPA[iCount].value)
+					studentGPA.push(gpaNumber);
+				}
+				
+				studentGPA.push(byuGPA);
+				studentGPA.push(byuLast30GPA);
+				
+				for (iCount = 0; iCount < studentGPA.length; iCount++) {
+					if(isNaN(studentGPA[iCount])) {
+						alert("You must select an item in each drop down and enter a value in the GPA text boxes!");
+						document.getElementById("is201-gpa").focus();
+						inputValid = false;
+						break;
+						
+					}
+				}
+				
+				if(inputValid == true) {
+				
+					for(iCount = 0; iCount < classRetake.length; iCount++) {
+						if(classRetake[iCount].checked == true) {
+							gpaNumber = retake(studentGPA[iCount]);
+							studentGPA[iCount] = gpaNumber;
+		
+						}
+					}
+					
+					for (iCount = 0; iCount < studentGPA.length; iCount++) {
+						console.log(studentGPA[iCount]);
+					}
+	
+					
+					totalGPA = (is201GPA* .2) + (is301GPA * .2) + (((fin201GPA + mktg201GPA + acc200GPA) / 3) * .2) + (byuGPA * .2) + (byuLast30GPA * .2);
+					
+					outputTextBox.innerHTML = totalGPA;
+				}
+				
+			}
+			
+						
+		</script>
+		
+	</head>
+	<body>
+		<h1>IS GPA Calculator</h1>
+		
+		<div class="calculator-block">
+			
+			<p>IS 201
+			<select name="is201" id="is201-gpa"> 
+				<option disabled selected value></option>
+				<option value="4">A</option>
+				<option value="3.7">A-</option>
+				<option value="3.4">B+</option>
+				<option value="3">B</option>
+				<option value="2.7">B-</option>
+				<option value="2.4">C+</option>
+				<option value="2">C</option>
+				<option value="1.7">C-</option>
+				<option value="1.4">D+</option>
+				<option value="1">D</option>
+				<option value=".7">D-</option>
+				<option value="0">E</option>
+			</select>
+			<input type="checkbox" id="is201-retake" name="is201-reatake" value="retake">Retake<br>
+			</p>
+			
+			<p>IS 301/CS142
+			<select name="is301" id="is301-gpa"> 
+				<option disabled selected value></option>
+				<option value="4">A</option>
+				<option value="3.7">A-</option>
+				<option value="3.4">B+</option>
+				<option value="3">B</option>
+				<option value="2.7">B-</option>
+				<option value="2.4">C+</option>
+				<option value="2">C</option>
+				<option value="1.7">C-</option>
+				<option value="1.4">D+</option>
+				<option value="1">D</option>
+				<option value=".7">D-</option>
+				<option value="0">E</option>
+				<input type="checkbox" id="is301-retake" name="is201-reatake" value="retake">Retake<br>
+			</select>
+			</p>
+			
+			<p>ACC 200
+			<select name="acc200" id="acc200-gpa"> 
+				<option disabled selected value></option>
+				<option value="4">A</option>
+				<option value="3.7">A-</option>
+				<option value="3.4">B+</option>
+				<option value="3">B</option>
+				<option value="2.7">B-</option>
+				<option value="2.4">C+</option>
+				<option value="2">C</option>
+				<option value="1.7">C-</option>
+				<option value="1.4">D+</option>
+				<option value="1">D</option>
+				<option value=".7">D-</option>
+				<option value="0">E</option>
+				<input type="checkbox" id="acc200-retake" value="retake">Retake<br>
+			</select>
+			</p>
+			
+			<p>FIN 201
+			<select name="fin201" id="fin201-gpa"> 
+				<option disabled selected value></option>
+				<option value="4">A</option>
+				<option value="3.7">A-</option>
+				<option value="3.4">B+</option>
+				<option value="3">B</option>
+				<option value="2.7">B-</option>
+				<option value="2.4">C+</option>
+				<option value="2">C</option>
+				<option value="1.7">C-</option>
+				<option value="1.4">D+</option>
+				<option value="1">D</option>
+				<option value=".7">D-</option>
+				<option value="0">E</option>
+				<input type="checkbox" id="fin201-retake" value="retake">Retake<br>
+			</select>
+			</p>
+			
+			<p>MKTG 201
+			<select name="mkgt201" id="mktg201-gpa"> 
+				<option disabled selected value></option>
+				<option value="4">A</option>
+				<option value="3.7">A-</option>
+				<option value="3.4">B+</option>
+				<option value="3">B</option>
+				<option value="2.7">B-</option>
+				<option value="2.4">C+</option>
+				<option value="2">C</option>
+				<option value="1.7">C-</option>
+				<option value="1.4">D+</option>
+				<option value="1">D</option>
+				<option value=".7">D-</option>
+				<option value="0">E</option>
+				<input type="checkbox" id="mkgt201-retake" value="retake">Retake<br>
+			</select>
+			</p>
+			
+			<p>BYU Overall GPA: 
+				<input name="BYU GPA" type="text" id="byu-gpa">
+			</p>
+			
+			<p>BYU Last 30 Credits GPA: 
+				<input name="BYU Last 30 Credits GPA" type="text" id="byu-30-gpa">
+			</p>
+			
+			<button onclick="calcGPA()">Calculate</button></br>
+			<button>Reset</button>
+			
+			<p id="gpa-display"></p>
+			<svg height="100" width="100">
+			<circle id="myCircle" cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" display = "none" />
+			
+		</div>
+		
+	</body>
+	
+</html>

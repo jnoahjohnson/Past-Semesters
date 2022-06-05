@@ -1,0 +1,15 @@
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.csprojAssemblyReference.cache
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.GeneratedMSBuildEditorConfig.editorconfig
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.AssemblyInfoInputs.cache
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.AssemblyInfo.cs
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.csproj.CoreCompileInputs.cache
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/Merkle.deps.json
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/Merkle.runtimeconfig.json
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/Merkle.runtimeconfig.dev.json
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/Merkle.dll
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/ref/Merkle.dll
+/Users/noahjohnson/Dev/IS414/Merkle/bin/Debug/net5.0/Merkle.pdb
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.dll
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/ref/Merkle.dll
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.pdb
+/Users/noahjohnson/Dev/IS414/Merkle/obj/Debug/net5.0/Merkle.genruntimeconfig.cache

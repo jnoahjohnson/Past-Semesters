@@ -1,0 +1,43 @@
+{% extends 'base.html' %}{% block content %}
+<div>
+  <h1 class="mb-4">Blowout Instument Rentals</h1>
+
+  <div class="row mb-4">
+    <div class="col-md mb-4">
+      <h3>Our Rentals</h3>
+      <p>
+        Blowout Rentals is the perfect place for you to rent your favorite
+        instrument. We offer both used and new instruments in order to give
+        customers both better selection and pricing.
+      </p>
+      <button
+        type="button"
+        class="btn btn-light btn-md"
+        onclick="location.href='{% url 'inventory_view' %}'"
+      >
+        Instruments
+      </button>
+    </div>
+    <div class="col-md mb-4">
+      <h3>About Us</h3>
+      <p>
+        Founded in 2018. Blowout Rentals began its story in the basement of a
+        one-story home in the suberbs of Provo, Utah. Due to the increasing
+        popularity of music over the last year, Blowout Rentals has grown
+        tremendously and now has several shops across Utah Valley. We offer a
+        wide selection of instrument rentals, ranging from flutes to saxophones
+        and offer various insurance and protection packages to ensure a positive
+        rental experience.
+      </p>
+      <button
+        type="button"
+        class="btn btn-light btn-md"
+        onclick="location.href='{% url 'about_view' %}'"
+      >
+        Learn More
+      </button>
+    </div>
+    <div class="col-md mb-4"></div>
+  </div>
+</div>
+{% endblock %}

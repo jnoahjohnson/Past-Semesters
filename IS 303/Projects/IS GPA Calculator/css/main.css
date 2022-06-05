@@ -1,0 +1,49 @@
+.body-container {
+	height: 100%;
+	width: 100% !important;
+	margin: auto !important;
+}
+
+.calculator-block {
+    width: 80%;
+    height: 750px;
+
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding-top: 20px;
+
+    margin: auto;
+
+	text-align: center;	
+	
+	background-color: rgba(51, 50, 54, .9); 
+	color: white;
+	border-radius: 5%;
+}
+
+h1 {
+	text-align: center;
+}
+
+html, body {
+	height: 100% !important;
+	background-image: url("../byu-landscape.png");
+}
+
+.logo {
+	width: 15%;
+	opacity: 1 !important;
+}
+
+#gpa-display {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+
+

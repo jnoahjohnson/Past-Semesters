@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yahtzee!</title>
+        <!-- Bootstrap CDN -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Custom CSS -->
+        <style>
+            .centerText {
+                text-align: center;
+            }
+
+            .mainLogo {
+                width: 30%;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                margin-bottom: 50px;
+                margin-top: 50px;
+            }
+
+            body {
+                background: #C1252C;
+                text-align: center;
+            }
+
+            .yahtzeeContainer {
+                background: white;
+                padding-top: 20px;
+                border-style: solid;
+                border-color: black;
+                border-width: 2px;
+                width: 100%;
+                height: 100%;
+                margin-bottom: 200px;
+            }
+
+            .clickMeButton {
+                background: #C1252C;
+                margin-bottom: 20px;
+                background-color:#C1252C;
+                -moz-border-radius:28px;
+                -webkit-border-radius:28px;
+                border-radius:28px;
+                border:1px solid #C1252C;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:17px;
+                padding:10px 25px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #C1252C;
+            }
+
+            .clickMeButton:hover{
+                background-color:#b12222;
+                border:1px solid #b12222;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <img src="yahtzeeLogo.png" class="mainLogo">
+
+        <div class="container centerText yahtzeeContainer">
+            <h2>Ready to play?</h2>
+            <label for="yahtzeeNumberInput">What number do you want to use for Yahtzee?</label>
+            <input type="text" id="yahtzeeNumberInput">
+
+            <br> 
+
+            <button onclick="rollTheDie()" class="clickMeButton" id="yahtzeeButton">Click Me</button>
+
+            <br>
+
+            <img src="" id="yahtzeeDice1">
+            <img src="" id="yahtzeeDice2">
+            <img src="" id="yahtzeeDice3">
+            <img src="" id="yahtzeeDice4">
+            <img src="" id="yahtzeeDice5">
+
+            <br>
+
+            <p id="dice1Count"></p>
+            <p id="dice2Count"></p>
+            <p id="dice3Count"></p>
+            <p id="dice4Count"></p>
+            <p id="dice5Count"></p>
+            <p id="totalDiceCount"></p>
+
+        </div>
+
+
+        <script>
+
+                function dieRoll(dieNumber) {
+                    //Dice image variable that takes the function input
+                    var diceImage = document.getElementById("yahtzeeDice" + dieNumber);
+    
+                    //The user dice selection
+                    var userDiceNumber = parseInt(document.getElementById("yahtzeeNumberInput").value);
+                
+                    //Dice output variables
+                    var dieCountOutput = document.getElementById("dice" + dieNumber + "Count");
+    
+                    //Declare other variables
+                    var dieRoll;
+                    var numDieRolls = 0;
+    
+                    do {
+                        //Roll the die
+                        dieRoll = Math.floor(Math.random() * 5 + 1);
+                        //Add to the total number of die rolls
+                        numDieRolls += 1;
+                        //Set the dice image to the die roll
+                        diceImage.src = "dice" + userDiceNumber + "Use.jpg";
+                    } while (dieRoll != userDiceNumber);
+    
+                    //Output the number of rolls that it took to get the correct number
+                    dieCountOutput.innerHTML = "Dice " + dieNumber + " Rolls = " + numDieRolls;
+    
+                    //Returns the number of times that it took to get the correct number
+                    return numDieRolls;
+    
+                }
+    
+                function rollTheDie() {
+                    //Output variables
+                    var outputTotalDieRolls = document.getElementById("totalDiceCount");
+    
+                    //Other Variables
+                    var userDiceNumber = parseInt(document.getElementById("yahtzeeNumberInput").value); 
+                    var totalDieRolls = 0;
+                    var iCount = 0;
+                    
+                    if (userDiceNumber >= 1 && userDiceNumber <= 6) {
+                        for (iCount = 1; iCount < 6; iCount++) {
+                            //Rolls the die and gets the return value and adds that to the number of total die rolls
+                            totalDieRolls = totalDieRolls + dieRoll(iCount);
+                        }
+    
+                        //Output the total number of die rolls
+                        outputTotalDieRolls.innerHTML = "Total # of rolls: " + totalDieRolls;
+    
+                    }
+                    else {
+                        //If the number is not valid, alert the user and put focus on the number input
+                        alert("Must select a number between 1 and 6.");
+                        document.getElementById("yahtzeeNumberInput").focus();
+                    }
+                }
+
+                //When user hits the enter button, run the button function
+                var input = document.getElementById("yahtzeeNumberInput");
+                input.addEventListener("keyup", function(event) {
+                    event.preventDefault();
+                    if (event.keyCode === 13) {
+                    document.getElementById("yahtzeeButton").click();
+                }
+                });
+
+            
+            </script>
+    </body>
+</html>

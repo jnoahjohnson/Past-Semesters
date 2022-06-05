@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+
+    </head>
+    <body>
+        <form id="inputs" name="myForm">
+            <fieldset style="width: 0px">
+                <legend>Student Information</legend>
+                <label for="firstNameInput">First Name: </label>
+                <input type="text" id="firstNameInput" autofocus oninput="validate()" maxlength="10" placeholder="Noah Johnson">
+                <label for="lastNameInput" disabled>Last Name: </label>
+                <input type="text" id="lastNameInput">
+                Chose a date: <input type="date" id="myDate" min="2010-01-15" max="2020-12-31">
+
+            </fieldset>
+        </form>
+
+
+        <script>
+                function validate() {
+                    if (document.getElementById("firstNameInput").value != "") {
+                        document.getElementById("lastNameInput").disabled = false;
+                    }
+                    else {
+                        document.getElementById("lastNameInput").disabled = true;
+                    }
+                }
+            
+            </script>
+    </body>
+</html>

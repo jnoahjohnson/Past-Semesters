@@ -1,0 +1,202 @@
+<!--Stephen Hales, Hoon Lee, Noah Johnson, Devan Alder, Teresa Huff-->
+
+<!--Section 2 Team 4-->
+
+<!--This code takes the two names entered in the text boxes and calculates the love percentage based 
+    on the characters in the name that match the love phrase characters. It then displays the percentage 
+    in a heart and a phrase-->
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+                <!--link to the loading bar css and js sheets-->
+                <link rel="stylesheet" type="text/css" href="loading-bar.css"/>
+                <script type="text/javascript" src="loading-bar.js"></script>
+
+                <!-- Bootstrap -->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+            <style>
+                 html, body {
+                    height: 100% !important;
+                    text-align: center;
+                    background-image: url(https://68.media.tumblr.com/93de81b5de69cf684af95a6a11bf93d4/tumblr_odwant0FBJ1vwtxzao1_500.gif);
+                 }
+    
+                 h1{
+                    color: rgb(233, 133, 133);
+                    margin-top: 10px;
+                 }
+    
+                .LoveHeart {
+                    color: rgb(75, 33, 43);
+                    display: inline-block;
+                    margin-top: 40px;
+                }
+    
+                p{
+    
+                    color: rgb(233, 133, 133);
+    
+                    font-weight: bold;
+    
+                    font-size: 150%;
+    
+                    position: absolute;
+    
+                    left: 78%;
+    
+                    }
+                    
+                .button{
+    
+                    background-color:  rgb(233, 133, 133);
+    
+                    border-radius: 20px;
+    
+                    color: white; /* Text color */
+    
+                    padding: 9px 25px;
+    
+                    font-size: 15px;
+                    }
+                .button:hover {
+                    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                    cursor: pointer;
+                    }
+    
+            </style>
+    
+            <script>
+                function calculateTheLove()
+                {
+                    //takes the names, changes them to lower case, gets rid of the spaces, and makes it an array
+                    var lovePhrase = document.getElementById("lovephrase").value.toLowerCase().split(' ').join('').split('');
+                    var firstName = document.getElementById("firstname").value.toLowerCase().split(' ').join('').split('');
+                    var secondName = document.getElementById("secondname").value.toLowerCase().split(' ').join('').split('');
+                   
+                    var communicate = document.getElementById("communicate");
+                    var selfish = document.getElementById("selfish");
+                    var serve = document.getElementById("serve");
+                    var bestfriend = document.getElementById("bestfriend");
+                    var remember = document.getElementById("remember");
+                   
+                    var loveCount=0;
+                    var iFactor = 1;
+                    
+                    //grabs the names and compares it to the love phrase
+                    for(iCount1 = 0; iCount1<firstName.length; iCount1++){
+                        for(iCount2 =0; iCount2<lovePhrase.length; iCount2++){
+                            if (firstName[iCount1] == lovePhrase[iCount2]){
+                                loveCount++;
+                            } 
+                        }
+                    }
+                    for(iCount1 = 0; iCount1<secondName.length; iCount1++){
+                        for(iCount2 =0; iCount2<lovePhrase.length; iCount2++){
+                            if (secondName[iCount1] == lovePhrase[iCount2]){
+                                loveCount++;
+                            } 
+                        }
+                    }
+    
+                    //checks if the boxes are checked
+                    if (communicate.checked == true){
+                        iFactor = iFactor + .25;
+                    }
+                    if (selfish.checked == true){
+                        iFactor = iFactor + .25;
+                    }
+                    if (serve.checked == true){
+                        iFactor = iFactor + .25;
+                    }
+                    if (bestfriend.checked == true){
+                        iFactor = iFactor + .25;
+                    }
+                    if (remember.checked == true){
+                        iFactor = iFactor + .5;
+                    }
+    
+                    //formula to calculate the love percentage
+                    var iPower = Math.ceil(((loveCount / lovePhrase.length) * 22) * iFactor);
+
+                    //Hard code for couples
+                    if(document.getElementById("firstname").value == "Noah Johnson" && document.getElementById("secondname").value == "Korin Beckstead") {
+                        iPower = 100;
+                    }
+    
+                    drawBar(iPower);
+                }
+    
+                //funciton to display the output words and the heart fill
+                function drawBar(iPower){
+    
+                    if (iPower >= 100){
+                        document.getElementById("output").innerHTML = "Perfect Marriage";
+                    }
+                    else if (iPower>= 85){
+                        document.getElementById("output").innerHTML = "Get Married!";
+                    }
+    
+                    else if (iPower >= 70){
+                        document.getElementById("output").innerHTML = "It might work";             
+                    }
+    
+                    else {
+                        document.getElementById("output").innerHTML = "Keep looking!";
+                    }
+                    
+                    //funtion to set the heart to the calculated percentage
+                    var bar1 = new ldBar("#myItem1");
+                    var bar2 = document.getElementById('myItem1').ldBar;
+                    bar1.set(iPower);
+                    
+                } 
+    
+                //function to clear all the contents created
+                function clearAll(){
+                    var bar1 = new ldBar("#myItem1");
+                    var bar2 = document.getElementById('myItem1').ldBar;
+                    bar1.set(0);
+    
+                    document.getElementById("lovephrase").value = "";
+                    document.getElementById("firstname").value = "";
+                    secondName = document.getElementById("secondname").value = "";
+                    communicate = document.getElementById("communicate").checked = false;
+                    selfish = document.getElementById("selfish").checked = false;
+                    serve = document.getElementById("serve").checked = false;
+                    bestfriend = document.getElementById("bestfriend").checked = false;
+                    remember = document.getElementById("remember").checked = false;
+    
+                    document.getElementById("output").innerHTML = "";
+                    document.getElementById("lovephrase").focus();
+                }
+            </script>
+        </head>
+        <body>
+            <h1>Welcome to BYU's <br> Information System's Dating Site!</h1><br>
+            <label for="lovephrase">What is the love phrase?:</label> <input type="text" id="lovephrase" autofocus><br><br>
+            <label for="firstname">Enter the first person's first and last name:</label> <input type="text" id="firstname"><br><br>
+            <label for="secondname">Enter the second person's first and last name:</label> <input type="text" id="secondname"><br><br>
+            <input type="checkbox" id="communicate"><label for="communicate">We will communicate often</label><br><br>
+            <input type="checkbox" id="selfish"><label for="selfish">We will not be selfish</label><br><br>
+            <input type="checkbox" id="serve"><label for="serve">We will serve each other</label><br><br>
+            <input type="checkbox" id="bestfriend"><label for="bestfriend">My spouse will be my bestfriend</label><br><br>
+            <input type="checkbox" id="remember"><label for="remember">We will remember God</label><br><br>
+            <input type="button" value="Click Me" class="button" id="enter" onclick="calculateTheLove()"> <input type="button" class="button" value="Reset" id="clear" onClick="clearAll()">
+       
+            <br>
+            
+            <div id="myItem1" class="LoveHeart ldBar label-center" 
+                data-value="0"
+                data-type="fill"
+                data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+                c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+                35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+                0.5,23.2c0,22.2,36.5,45.3,45,55.9
+                C53.5,67.3,90.5,46.3,90.5,23.2z"
+                >
+            </div>
+            <p id="output"></p> 
+        </body>
+    </html>

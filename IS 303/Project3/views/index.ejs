@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Music Library</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .buttonContainer {
+                text-align: center;
+            }
+
+            .headerContainer {
+                width: 100%;
+                height: auto;
+                color: white;
+                background-color: rgb(39, 39, 88);
+                text-align: center;
+            }
+
+            #mainHeader {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .table {
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #resetButton {
+                margin-bottom: 20px;
+            }
+
+            .button {
+                border: 2px solid rgb(39, 39, 88);
+                background-color: white;
+                color: black;
+                padding: 12px 26px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            
+
+            .button:hover {
+                background: rgb(39, 39, 88);
+                color: white;
+            }
+
+            .tableButton {
+                height: 30px;
+                width: 90px;
+                font-size: 12px;
+                padding: 0;
+            }
+
+            .sortButton {
+                background: none;
+                border: none;
+                font-size: 11px;
+            }
+
+        </style>
+
+        <!--Sets certain styles based on the whereToFocus variable that was passed from the index.js file-->
+
+        <% if (whereToFocus === "songFocus") { %>
+            <style>
+                #songSortButton {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+            </style>
+        <%} %>
+
+        <% if (whereToFocus === "artistFocus") { %>
+            <style>
+                #artistSortButton {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+            </style>
+        <%} %>
+
+        <% if (whereToFocus === "yearFocus") { %>
+            <style>
+                #yearSortButton {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+            </style>
+        <%} %>
+
+        <% if (whereToFocus === "songIDFocus") { %>
+            <style>
+                #songIDSortButton {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+            </style>
+        <%} %>
+
+    </head>
+    <body>
+        <div class="headerContainer">
+
+            <h1 id="mainHeader">Music Library</h1>
+
+        </div>
+
+        <div class="tableContainer">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <form>
+                            <th>Song ID <button type="submit" formaction="/" method="GET" id="songIDSortButton" class="sortButton">Sort</button></th>
+                            <th>Song Name <button type="submit" formaction="/sortBySong" method="GET" id="songSortButton" class="sortButton">Sort</button></th>
+                            <th>Artist Name <button type="submit" formaction="/sortByArtist" method="GET" id="artistSortButton" class="sortButton">Sort</button></th>
+                            <th>Year Released <button type ="submit" formaction="/sortByYear" method="GET" id="yearSortButton" class="sortButton">Sort</button></th>
+                            <th>Edit Song</th>
+                            <th>Erase Song</th>
+                        </form>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% for(var iCount = 0; iCount < songs.length; iCount++) {%>
+                        <tr>
+                            <td><%= songs[iCount].SongID %></td>
+                            <td><%= songs[iCount].SongName %></td>
+                            <td><%= songs[iCount].ArtistID %></td>
+                            <td><%= songs[iCount].YearReleased %></td>
+                            <td>
+                                <form action="/editSong/<%= songs[iCount].SongID %>/<%= songs[iCount].SongName %>/<%= songs[iCount].ArtistID %>/<%= songs[iCount].YearReleased %>" method="GET">
+                                    <input type="submit" class="button tableButton" value="Edit Song">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/DeleteSong/<%= songs[iCount].SongID %>" method="POST" >
+                                    <input type="submit" class="button tableButton" value="Erase Song">
+                                </form>
+                            </td>
+                        </tr>
+                    <% }%>
+                </tbody>
+            </table>
+
+        </div>  
+        
+        <div class="buttonContainer">
+
+            <form action="/ResetDatabase/" method="POST" id="resetButton">
+                <input type="submit" class="button" value="Start Over">
+            </form>
+
+            <form action="/addSong" method="GET">
+                <input type="submit" class="button" value="Add a New Song">
+            </form>
+
+        </div>
+        
+    </body>
+</html>

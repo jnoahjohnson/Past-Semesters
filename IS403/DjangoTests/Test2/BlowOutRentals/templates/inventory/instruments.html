@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% load static %}{% block content %}
+<div>
+  <h1>Blowout Instrument Rentals</h1>
+  <div
+    class="bg-primary"
+    style="width: 180px"
+    onclick="location.href='{% url 'instrument_view' instrument_name='TRUMPET' instrument_price=37 %}'"
+  >
+    <img src={% static 'img/trumpetThumbnail.jpg' %} alt="Trumpet"
+    class='w-100'/>
+  </div>
+</div>
+{% endblock %}

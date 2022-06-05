@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello World</title>
+        <style>
+            img {
+                width: 70%;
+                display: block;
+                margin: auto;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 24px;
+            }
+        
+        </style>
+
+        <script>
+
+            var newNumber;
+
+            function AbrahamFunction() {
+
+                if (document.getElementById("president").innerHTML != "George Washington"){
+                    document.getElementById("president").innerHTML = "George Washington";
+                    document.getElementById("abraham").src = "https://hugelolcdn.com/i/91885.jpg";
+                } else {
+                    document.getElementById("president").innerHTML = "Abraham Lincoln";
+                    document.getElementById("abraham").src = "https://images-na.ssl-images-amazon.com/images/I/51rUwOKFVSL.jpg";
+                }
+
+                console.log("You changed the picture!");
+
+            }
+
+            function AddNumber() {
+                newNumber = parseInt(document.getElementById("number").innerHTML) + 1;
+
+                document.getElementById("number").innerHTML = newNumber;
+                
+                console.log(newNumber);
+
+                newNumber = 100;
+
+                console.log(newNumber);
+
+            }
+
+            function SubtractNumber() {
+                newNumber = parseInt(document.getElementById("number").innerHTML) - 1;
+                document.getElementById("number").innerHTML = newNumber;
+            }
+
+            function CustomNumber() {
+                newNumber = parseInt(document.getElementById("number").innerHTML) + parseInt(prompt("How much would you like to add?", 0));
+                document.getElementById("number").innerHTML = newNumber;
+            }
+            
+        </script>
+
+    </head>
+
+    <body>
+
+        <h1>Hello World</h1>
+        <h2 id="president">Honest Abe</h2>
+        <img src="https://images-na.ssl-images-amazon.com/images/I/51rUwOKFVSL.jpg" alt="AbrahamLincoln" id="abraham" onclick="AbrahamFunction()">
+        <button onclick="AbrahamFunction()">Click Me</button>
+        <p>This is a test of html and tags</p>
+        <a href="apple.com">Go to Apple</a>
+
+        <p id="number">0</p>
+        <button onclick="AddNumber()">Plus 1</button>
+        <button onclick="SubtractNumber()">Minus 1</button>
+        <button onclick="CustomNumber()">Add Your Number</button>
+
+        <ol>
+            <li>Class 1</li>
+            <li>Class 2</li>
+            <li>Class 3</li>
+        </ol>
+
+        <ul>
+                <li>Class 1</li>
+                <li>Class 2</li>
+                <li>Class 3</li>
+        </ul>
+
+    </body>
+</html>

@@ -1,0 +1,114 @@
+<!--
+    Name: Noah Johnson
+
+    Description: Page 1 of two of a site that allows user to input data and then store it into local storage. It then opens another page 
+    and outputs the data that the user entered.
+
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body onload="resetPage()">
+
+        <form> 
+            <fieldset style="width: 0px;">
+                <legend>Student</legend>
+                <label for="firstName">First name: </label><input type="text" id="firstName"><br>
+                <label for="lastName">Last name: </label><input type="text" id="lastName"><br>
+                <label for="userPassword">Password: </label><input type="password" id="userPassword"><br>
+                <label for="dateOfBirth">Date of birth: </label><input type="date" id="dateOfBirth" min="1950-01-01" max="2019-03-22"><br>
+                <label for="overallGPA">Overall GPA: </label><input type="number" id="overallGPA"><br>
+                <label>Gender: </label><br>
+                <select id="userGender">
+                    <option value="M" selected="selected">Male</option>
+                    <option value="F">Female</option>
+                    <option value="O">Other</option>
+                </select>
+            </fieldset>
+
+            <br>
+            <br>
+
+            <label for="favoriteColor">Favorite Color: </label><input type="color" id="favoriteColor">
+
+            <br>
+            <br>
+
+            <label>Would you like to recieve emails?</label>
+            <input type="radio" name="receiveEmails" id="yesEmails" value="Y" checked="checked"><label for="yesEmails">Y</label>
+            <input type="radio" name="receiveEmails" id="noEmails" value="N"><label for="noEmails">N</label>
+
+            <br>
+            <br>
+
+            <input type="button" value="Save" id="saveButton" onclick="saveData()">
+        </form>
+        
+
+        <script>
+            function saveData() {
+                //Get all of the data from the form
+                var firstName = document.getElementById("firstName").value;
+                var lastName = document.getElementById("lastName").value;
+                var userPassword = document.getElementById("userPassword").value;
+                var dateOfBirth = document.getElementById("dateOfBirth").value;
+                var overallGPA = document.getElementById("overallGPA").value;
+                var userGender = document.getElementById("userGender").value;
+                var favoriteColor = document.getElementById("favoriteColor").value;
+
+                //Get the value of the email preference
+                var receiveEmails = document.getElementsByName("receiveEmails");
+                var emailPreference;
+
+                if(receiveEmails[0].checked) {
+                    emailPreference = receiveEmails[0].value;
+                }
+                else {
+                    emailPreference = receiveEmails[1].value;
+                }
+
+                //If the first name is blank, tell the user and focus on the field
+                if(firstName === "") {
+                    alert("User must enter first name");
+                    document.getElementById("firstName").focus();
+                }
+                //If the last name is blank, tell the user and focus on the field
+                else if(lastName === "") {
+                    alert("User must enter last name");
+                    document.getElementById("lastName").focus();
+                }
+                else {
+                    //Set all of the items in local storage and open the new html page
+                    localStorage.setItem("userFirstName", firstName);
+                    localStorage.setItem("userLastName", lastName);
+                    localStorage.setItem("userPassword", userPassword);
+                    localStorage.setItem("dateOfBirth", dateOfBirth);
+                    localStorage.setItem("overallGPA", overallGPA);
+                    localStorage.setItem("userGender", userGender);
+                    localStorage.setItem("favoriteColor", favoriteColor);
+                    localStorage.setItem("emailPreference", emailPreference);
+
+                    window.open("output.html");
+                }
+            }
+
+            function resetPage() {
+                //When the page is run, focus on the first name field and remove all local storage
+                document.getElementById("firstName").focus();
+
+                localStorage.removeItem("userFirstName");
+                localStorage.removeItem("userLastName");
+                localStorage.removeItem("userPassword");
+                localStorage.removeItem("dateOfBirth");
+                localStorage.removeItem("overallGPA");
+                localStorage.removeItem("userGender");
+                localStorage.removeItem("favoriteColor");
+                localStorage.removeItem("emailPreference");
+            }
+        </script>
+    </body>
+</html>

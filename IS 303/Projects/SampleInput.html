@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <form id="inputs" name="myform">
+            <fieldset style="width:0px">
+                <legend>Student Information:</legend>
+                <label for="firstName">First Name:</label><input type="text" id="firstName" name="firstName" autofocus>
+                <br><br>
+                <label for="lastName">Last Name:</label><input type="text" id="lastName" name="lastName">
+            </fieldset>
+            <br><br>
+            <label for="favColor">Favorite Color: </label><input type="color" id="favColor" name="favColor">
+            <br><br>
+            <input type="button" value="Store" id="btnStore" onclick="processForm()" >
+        </form>
+        <script>
+            function processForm()
+            {
+                var sFirstName, sLastName, sColor;
+
+                sFirstName = document.forms["inputs"]["firstName"].value;
+                sLastName = document.forms["inputs"]["lastName"].value;
+                sColor = document.forms["inputs"]["favColor"].value;
+
+                window.open("SampleOutput.html");
+                localStorage.setItem("newFirstName", sFirstName);
+                localStorage.setItem("newLastName", sLastName);
+                localStorage.setItem("newFavColor", sColor);
+            }
+        </script>
+    </body>
+</html>

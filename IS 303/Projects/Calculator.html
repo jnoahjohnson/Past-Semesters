@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+
+
+        <style>
+        
+            html {
+                text-align: center;
+            }
+        
+            #textBox {
+                height: 30px;
+                width: 500px;
+            }
+
+            .calculator {
+                width: 800px;
+                height: 600px;
+                background-color:rgb(255, 255, 255);
+
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
+                padding-top: 30px;
+
+                margin: auto;
+
+                font-family: sans-serif;
+
+                border-radius: 5%;
+                
+            }
+
+            body {
+                background-color: aliceblue;
+            }
+        
+        
+        
+        </style>
+
+
+
+
+        <script>
+
+        var solutionStep = 0;
+
+        function toSolution(string) {
+            var outputString = document.getElementById("solution").innerHTML;
+
+            if (solutionStep === 0) {
+                outputString = outputString + string;
+                ++solutionStep;
+            } else {
+                outputString = outputString + solutionStep + ". " + string;
+                ++solutionStep;
+            }
+
+            document.getElementById("solution").innerHTML = outputString;
+        }
+
+        function calculateArray(equationArray) {
+            var currArray;
+            var newArrayNumber = 0;
+
+            while (equationArray.length > 1) {
+                for (i = 0; i < equationArray.length; i++) {
+                    currArray = equationArray[i];
+
+                    if (currArray == "*") {
+                        newArrayNumber = equationArray[i - 1] * equationArray[i + 1];
+                        toSolution(equationArray[i - 1] + " * " + equationArray[i + 1] + " = " + newArrayNumber + "<br>");
+                        equationArray.splice(i - 1, 3, newArrayNumber);
+                    }
+
+                }
+
+                for (i = 0; i < equationArray.length; i++) {
+                    currArray = equationArray[i];
+
+                    if (currArray == "/") {
+                        newArrayNumber = equationArray[i - 1] / equationArray[i + 1];
+                        toSolution(equationArray[i - 1] + " / " + equationArray[i + 1] + " = " + newArrayNumber + "<br>");
+                        equationArray.splice(i - 1, 3, newArrayNumber);
+                    }
+
+                }
+
+                for (i = 0; i < equationArray.length; i++) {
+                    currArray = equationArray[i];
+
+                    if (currArray == "+") {
+                        newArrayNumber = equationArray[i - 1] + equationArray[i + 1];
+                        toSolution(equationArray[i - 1] + " + " + equationArray[i + 1] + " = " + newArrayNumber + "<br>");
+                        equationArray.splice(i -1, 3, newArrayNumber);
+                    }
+
+                }
+
+                for (i = 0; i < equationArray.length; i++) {
+                    currArray = equationArray[i];
+
+                    if (currArray == "-") {
+                        newArrayNumber = equationArray[i - 1] - equationArray[i + 1];
+                        toSolution(equationArray[i - 1] + " - " + equationArray[i + 1] + " = " + newArrayNumber + "<br>");
+                        equationArray.splice(i - 1, 3, newArrayNumber);
+                    }
+
+                }
+            }
+
+            return equationArray[0];
+        }
+
+        function stringToArray(string) {
+            var array = [];
+            var currChar;
+            var newNumber = "";
+            let operatorChars = "+*/-";
+            let numbers = "1234567890.";
+
+
+            for (var i = 0; i < string.length; i++) {
+                currChar = string.charAt(i);
+                newNumber = "";
+
+                if (numbers.includes(currChar) || (currChar == "-" && numbers.includes(string.charAt(i + 1)))) {
+                    do {
+                        newNumber += currChar;
+
+                        if (string.length - 1 === i) {
+                            break;
+                        } else {
+                            ++i;
+                            currChar = string.charAt(i);
+                            console.log(newNumber);
+                        }
+                    } while (numbers.includes(currChar));
+
+                    newNumber = Number(newNumber);
+                    array.push(newNumber);
+
+                    if (operatorChars.includes(currChar)) {
+                        array.push(currChar);
+                    }
+                }
+                else if (operatorChars.includes(currChar)) {
+                    array.push(currChar);
+                }
+            }
+
+            return array;
+
+        }
+
+        function checkParentheses(userEquation) {
+
+            while (userEquation.indexOf("(") != -1) {
+                var stringStart = userEquation.indexOf("(") + 1;
+                var stringEnd = userEquation.indexOf(")");
+
+                console.log(stringStart, stringEnd);
+
+                newString = userEquation.slice(stringStart, stringEnd);
+
+                newArray = stringToArray(newString);
+                solvedArray = calculateArray(newArray);
+                
+                userEquation = userEquation.replace(userEquation.slice(stringStart - 1, stringEnd + 1), solvedArray);
+
+            }
+
+            return userEquation;
+        }
+        
+        
+    
+        function calculate() {
+
+            var userEquation = document.getElementById("textBox").value;
+            var hasPar = true;
+            var i;
+            var currChar;
+            var newString;
+            var newArray;
+            var solvedArray;
+            var equationArray = [];
+            
+            document.getElementById("solution").innerHTML = "";
+
+            solutionStep = 0;
+            
+            toSolution(userEquation + "<br>");
+ 
+            userEquation = checkParentheses(userEquation);
+           
+            equationArray = stringToArray(userEquation);
+        
+            var result = calculateArray(equationArray);
+
+        
+            
+            document.getElementById("result").innerHTML = result;
+
+
+
+        }
+        
+        
+        </script>
+
+
+
+    </head>
+    <body>
+
+        <div class="calculator">
+            <h1>Enter Your Equation</h1>
+            <input type="text" name="textBox" id="textBox"><br><br>
+            <button type="button" id = "myButton" onclick="calculate()">Calculate</button><br>
+            <h2>Answer:</h2>
+            <h3 id="result"></h3><br><br>
+
+            <h2></h2>
+            <p id="solution"></p>
+        </div>
+
+        <script>
+        var input = document.getElementById("textBox");
+        input.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+            document.getElementById("myButton").click();
+        }
+        });
+
+        </script>
+    </body>
+</html>

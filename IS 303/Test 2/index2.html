@@ -1,0 +1,123 @@
+<!--
+Let's Play Ball! I want you to create the object oriented source code to represent the following. A baseball team has
+
+Create a Team class. This class will have attributes to store the team name (string), wins (int), losses (int), coach name(first and last with both being strings). The coach is an object from the BaseballCoach class.
+
+Create a BaseballTeam class. This class inherits from the Team class and have the attributes of team batting average (float), pitching average (float)
+
+Create a Person class with the attributes of first and last names (strings).
+
+Create a BaseballCoach class which inherits from the Person class and has the attributes of career wins (int) and career losses (int) and win/loss pct (float).
+
+Create BaseballPlayer class which inherits from the Person class and has the attribute of batting average (float) and home runs (int)
+
+Each class constructor should receive all attributes for their class and make the necessary calls to the parent.
+
+The Team class should have a method that returns the string "The Rockies have won 91 games and lost 72 games and their coach is Bud Black" where Rockies is the team name attribute, 91 is the wins attribute, 72 is the losses attribute, and Bud Black is the coaches name attribute. You are NOT returning that literal string but instead dynamically building the string using the values from the attributes.
+
+You do NOT have to write comments.
+
+You do NOT have to implement this in a program
+
+
+
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+
+        <script>
+            class Team {
+                teamName;
+                numWins;
+                numLosses;
+
+                /*
+                This part I was confused about. It says that the coach is an object from the BaseballCoach class,
+                but also that we should put coach first and last name here so I am just going to create two attributes for the first and
+                last name and also an attribule that instatiates a new coach. I didn't know if the coach first and last name should be
+                in the BaseballCoach class or here, so I will just put it here
+                */
+
+                coachFirstName;
+                coachLastName;
+                teamCoach = new BaseballCoach();
+
+                constructor(teamName, numWins, numLosses, coachFirstname, coachLastName) {
+                    this.teamName = teamName;
+                    this.numWins = numWins;
+                    this.numLosses = numLosses;
+                    this.coachFirstName = coachFirstname;
+                    this.coachLastName = coachLastName;
+                }
+
+                printTeamDescription() {
+                    var outputString = "";
+
+                    outputString = "The " + this.teamName + " have won " + this.numWins + " games and lost " + this.numLosses 
+                        + " games and their coach is " + this.coachFirstName + " " + this.coachLastName;
+
+                    return outputString;
+                 }
+            }
+
+            class BaseballTeam extends Team {
+
+                teamBattingAverage;
+                teamPitchingAverage;
+
+                constructor(teamName, numWins, numLosses, coachFirstName, coachLastName, teamBattingAverage, teamPitchingAverage) {
+                    super(teamName, numWins, numLosses, coachFirstName, coachLastName);
+                    this.teamBattingAverage = teamBattingAverage;
+                    this.teamPitchingAverage = teamPitchingAverage;
+                }    
+
+            }
+
+            class Person {
+                firstName;
+                lastName;
+
+                constructor(firstName, lastName) {
+                    this.firstName = firstName;
+                    this.lastName = lastName;
+                }
+            }
+
+            class BaseballCoach extends Person {
+                numCareerWins;
+                numCareerLosses;
+                winLossPercentage;
+
+                constructor(firstName, lastName, numCareerWins, numCareerLosses) {
+                    super(firstName, lastName);
+                    this.numCareerWins = numCareerWins;
+                    this.numCareerLosses = numCareerLosses;
+                    this.winLossPercentage = (numCareerWins/numCareerLosses) * 100;
+                }
+            }
+
+            class BaseballPlayer extends Person {
+                playerBattingAverage;
+                numHomeRuns;
+
+                constructor(firstName, lastName, playerBattingAverage, numHomeRuns) {
+                    super(firstName, lastName);
+                    this.playerBattingAverage = playerBattingAverage;
+                    this.numHomeRuns = numHomeRuns;
+                }
+            }
+
+            var newTeam = new Team("Rockies", 10, 20, "BUck", "Barnes");
+
+            console.log(newTeam.printTeamDescription());
+        
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

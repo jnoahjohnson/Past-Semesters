@@ -1,0 +1,24 @@
+{
+  "name": "project3",
+  "version": "1.0.0",
+  "description": "My first node app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "develop": "nodemon index.js",
+    "hello": "echo \"Hello\""
+  },
+  "author": "Noah Johnson",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+    <body>
+
+        <label for="first">Enter First Name:</label><input type="text" name="first" id="first">
+
+        <label for="last">Enter Last Name:</label><input type="text" name="last" id="last">
+
+        <label for="gpa">Enter GPA:</label><input type="text" name="gpa" id="gpa">
+
+        <p id="output"></p>
+
+        <input type="button" value="Add" onclick="runProgram()">
+
+        <br>
+
+        <input type="button" value="Show" onclick="displayNames()">
+
+        <script>
+
+            class Person {
+                firstName;
+                lastName;
+
+                constructor(firstName, lastName) {
+                    this.firstName = firstName;
+                    this.lastName = lastName;
+                }
+
+                getFullName() {
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+
+            class Student extends Person {
+                gpa;
+
+                constructor(firstName, lastName, gpa) {
+                    super(firstName, lastName);
+                    this.gpa = gpa;
+                }
+
+                getGPA() {
+                    return this.gpa;
+                }
+            }
+
+            function runProgram() {
+                firstName = document.getElementById("first").value;
+                lastName = document.getElementById("last").value;
+                gpa = document.getElementById("gpa").value;
+
+                var newStudent = new Student(firstName, lastName, gpa);
+
+                var listOfStudents = [];
+
+                
+
+                listOfStudents.push(newStudent);
+
+                console.log(listOfStudents[0].getFullName());
+
+                localStorage.setItem("studentArray", JSON.stringify(listOfStudents));  
+            }
+
+            function displayNames() {
+                var studentArray = localStorage.getItem("studentArray");
+
+                var studentArray2 = JSON.parse(studentArray);
+
+                console.log(studentArray[0].getFullName());
+            }
+        
+        
+        </script>
+        
+    </body>
+</html>

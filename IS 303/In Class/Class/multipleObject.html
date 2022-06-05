@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+            <script>
+                    class Person {
+                        firstname;
+                        lastname;
+                    }
+                    class Student extends Person {
+                        gpa;
+                        myCar = new Car();
+                    }
+                    class Car {
+                        model;
+                    }
+        
+                    function createStudent() {
+                        var newStudent = new Student();
+        
+                        newStudent.firstName = "Noah";
+                        newStudent.lastname = "Johnson";
+                        newStudent.gpa = 4.0;
+                        newStudent.myCar.model = "Toyota";
+        
+                        var output = newStudent.firstName + " " + newStudent.lastname + " " + newStudent.gpa + " " + newStudent.myCar.model;
+        
+                        document.getElementById("test").innerHTML = output;
+                    }
+                
+                </script>
+
+        <p id="test"></p>
+        <button onclick="createStudent()">Go</button>
+        
+
+    </body>
+</html>
